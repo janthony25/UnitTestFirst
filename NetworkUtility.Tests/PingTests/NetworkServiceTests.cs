@@ -82,5 +82,24 @@ namespace NetworkUtility.Tests.PingTests
             result.Ttl.Should().Be(1);
         }
 
+        [Fact]
+        public void NetworkService_MostRecentPings_ReturnsList()
+        {
+            // Arrange
+            var expected = new PingOptions()
+            {
+                DontFragment = true,
+                Ttl = 1
+            };
+
+            // Act
+            var result = _pingService.MostRecentPings();
+
+            // Assert WARNING: "Be" Careful
+            //result.Should().BeOfType<IEnumerable<PingOptions>>();
+            result.Should().ContainEquivalentOf(expected);
+            result.Should().Contain(x => x.DontFragment == true);
+        }
+
     }
 }
